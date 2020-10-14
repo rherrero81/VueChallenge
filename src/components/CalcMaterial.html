@@ -1,0 +1,66 @@
+
+
+### 
+
+<md-card id='mcar'>
+     <md-card-header id='mcarh'>
+         <div class="singleline">
+ Material<md-switch v-model="activeTab">HTML </md-switch>
+ </div> 
+     </md-card-header>
+
+     <md-card-content id='mcarc'>
+          <div  v-if="activeTab ==0" class="materialcalc">
+       <md-content class="md-elevation-4 singleline"><div id="res" >{{ operation.result }}</div></md-content>
+       <md-content class="md-elevation-2">  <md-button id="b7"  class="md-primary" v-on:click="changeDisplayValue('7', operation)">7</md-button></md-content>
+       <md-content class="md-elevation-3"> <md-button id="b8"  class="md-primary" v-on:click="changeDisplayValue('8', operation)">8</md-button></md-content>
+       <md-content class="md-elevation-4"> <md-button id="b9"  class="md-primary" v-on:click="changeDisplayValue('9', operation)">9</md-button></md-content>
+       <md-content class="md-elevation-5"><md-button  id="bd"  class="md-primary" v-on:click="changeOp('/',operation,calculate);   "> / </md-button>    </md-content>
+       <md-content class="md-elevation-6"><md-button  id="b4"  class="md-primary" v-on:click="changeDisplayValue('4', operation)">4</md-button></md-content>
+       <md-content class="md-elevation-7"><md-button  id="b5"  class="md-primary" v-on:click="changeDisplayValue('5', operation)">5</md-button></md-content>
+       <md-content class="md-elevation-8"><md-button id="b6"  class="md-primary" v-on:click="changeDisplayValue('6', operation)">6</md-button></md-content>
+       <md-content class="md-elevation-9"><md-button id="bx"  class="md-primary" v-on:click="changeOp('*',operation,calculate);   "> x </md-button>    </md-content>
+       <md-content class="md-elevation-10"><md-button id="b1"  class="md-primary" v-on:click="changeDisplayValue('1', operation)">1</md-button></md-content>
+       <md-content class="md-elevation-11"><md-button id="b2"  class="md-primary" v-on:click="changeDisplayValue('2', operation)">2</md-button></md-content>
+       <md-content class="md-elevation-12"><md-button id="b3" class="md-primary" v-on:click="changeDisplayValue('3', operation)">3</md-button></md-content>
+       <md-content class="md-elevation-13"><md-button id="br"  class="md-primary" v-on:click="changeOp('-',operation,calculate);   "> - </md-button>    </md-content>
+       <md-content class="md-elevation-14"><md-button id="bc"   class="md-primary"  v-on:click=" operation.number1 = ''; operation.number2 = '';  operation.estado = 0;  operation.result = 0;          ">            C </md-button> </md-content>    <md-content class="md-elevation-15"> <md-button v-on:click="changeDisplayValue('0', operation)">0</md-button></md-content>
+       <md-content class="md-elevation-16"> <md-button id="bp"  class="md-primary" v-on:click="changeDisplayValue('.', operation)">.</md-button></md-content>
+       <md-content class="md-elevation-17"> <md-button id="bs"  class="md-primary" v-on:click="changeOp('+',operation,calculate);          "> + </md-button>    </md-content>
+       <md-content class="md-elevation-17 singleline"> <md-button id="be" class="md-accent" v-on:click="changeOp('=',operation,calculate)          "> = </md-button>        </md-content>
+       </div>
+    
+  
+     <div   v-if="activeTab ==1" class="htmlcalc">
+     <div class="display"><span>{{ operation.result }}</span></div>
+     <div class="buttons">
+       <button v-on:click="changeDisplayValue('7', operation)">7</button>
+       <button v-on:click="changeDisplayValue('8', operation)">8</button>
+       <button v-on:click="changeDisplayValue('9', operation)">9</button>
+       <button     v-on:click="changeOp('/',operation,calculate);   "  >   /    </button>       
+       <button v-on:click="changeDisplayValue('4', operation)">4</button>
+       <button v-on:click="changeDisplayValue('5', operation)">5</button>
+       <button v-on:click="changeDisplayValue('6', operation)">6</button>
+       <button          v-on:click="changeOp('*',operation,calculate);                  "        >          x        </button>        <br></br>
+       <button v-on:click="changeDisplayValue('1', operation)">1</button>
+       <button v-on:click="changeDisplayValue('2', operation)">2</button>
+       <button v-on:click="changeDisplayValue('3', operation)">3</button>
+       <button          v-on:click="changeOp('-',operation,calculate);                    "        >          -        </button>       
+       <button          v-on:click="            operation.number1 = '';            operation.number2 = '';            operation.estado = 0;            operation.result = 0;          "        >          C        </button>
+       <button v-on:click="changeDisplayValue('0', operation)">0</button>
+       <button v-on:click="changeDisplayValue('.', operation)">.</button>
+       <button          v-on:click="changeOp('+',operation,calculate);          "        >          +        </button>      
+      </div>
+   <div class="equal">        <button          v-on:click="changeOp('=',operation,calculate)                "        >          =        </button>      </div>    </div>
+  
+
+     </md-card-content>
+
+     <md-card-actions>
+      
+     </md-card-actions>
+   </md-card>
+
+###
+
+ 
