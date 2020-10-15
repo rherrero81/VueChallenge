@@ -5,14 +5,17 @@
         <md-app-toolbar class="md-primary">
           <md-button
             class="md-icon-button"
-            v-on:click="menuVisible=!menuVisible"
+            v-on:click="menuVisible = !menuVisible"
           >
             <md-icon>menu</md-icon>
           </md-button>
-          <span
-            class="md-title"
-            >{{compIndex==0?'Calculator':compIndex==1?'Tic-tac-toe':'Memory Game'}}</span
-          >
+          <span class="md-title">{{
+            compIndex == 0
+              ? "Calculator"
+              : compIndex == 1
+              ? "Tic-tac-toe"
+              : "Memory Game"
+          }}</span>
         </md-app-toolbar>
 
         <md-app-drawer :md-active.sync="menuVisible">
@@ -20,17 +23,17 @@
             Challenges</md-toolbar
           >
           <md-list>
-            <md-list-item v-on:click="compIndex=0">
+            <md-list-item v-on:click="compIndex = 0">
               <md-icon>calculate</md-icon>
               <span class="md-list-item-text">Calculator</span>
             </md-list-item>
 
-            <md-list-item v-on:click="compIndex=1">
+            <md-list-item v-on:click="compIndex = 1">
               <md-icon>query_builder</md-icon>
               <span class="md-list-item-text">Tic-tac-toe</span>
             </md-list-item>
 
-            <md-list-item v-on:click="compIndex=2">
+            <md-list-item v-on:click="compIndex = 2">
               <md-icon>psychology</md-icon>
               <span class="md-list-item-text">Memory Game</span>
             </md-list-item>
@@ -38,9 +41,9 @@
         </md-app-drawer>
 
         <md-app-content>
-          <calc v-if="compIndex==0" />
-          <ttt v-if="compIndex==1" />
-          <mg v-if="compIndex==2" />
+          <calc v-if="compIndex == 0" />
+          <ttt v-if="compIndex == 1" />
+          <mg v-if="compIndex == 2" />
         </md-app-content>
       </md-app>
     </div>
@@ -59,7 +62,7 @@ import {
 } from "vue-material/dist/components";
 export default {
   components: {
-    Calc
+    Calc,
   },
 };
 </script>
@@ -96,16 +99,15 @@ export default {
 
 <script>
 export default {
-  name: 'Normal',
+  name: "Normal",
   data: () => ({
     menuVisible: false,
-    compIndex:0
+    compIndex: 0,
   }),
-   methods: {
+  methods: {
     clickmenu(l) {
       console.log(l);
-
-    }
-   },
-}
+    },
+  },
+};
 </script>

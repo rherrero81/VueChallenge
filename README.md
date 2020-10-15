@@ -1,3 +1,19 @@
+### ISSUES && TODO
+
+- PRECISIÓN Float: 
+    Ejemplo: parseFloat('2.75')- parseFloat('1') = 1.749
+    Solución temporal: redondear .toFixed(5), que no deja tener mas de 5 decimales.
+
+- Units test (JEST):TODO: diseñar estrategia para abarcar todos las casuísticas. 
+
+- CSS: anchura y altura depende de las dimensiones pantalla. TODO:ajustar y hacerlo versión estático.
+
+### Vue Info
+
+https://es.vuejs.org/v2/guide/computed.html
+
+https://vuematerial.io/getting-started
+
 ### Build Commands
 
 ``` bash

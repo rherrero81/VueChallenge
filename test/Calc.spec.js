@@ -30,7 +30,7 @@ describe("Calc.vue", () => {
     const buttone = wrapper.find("#be");
     buttone.trigger("click");
 
-    expect(wrapper.find("#res").text()).toEqual("15.00000");  
+    expect(wrapper.find("#res").text()).toEqual("15");  
   });
 
   it("Sum float: 1.2*2.3=", () => {
@@ -57,7 +57,7 @@ describe("Calc.vue", () => {
 
     wrapper.find("#be").trigger("click");
 
-    expect(wrapper.find("#res").text()).toEqual("2.76000");  
+    expect(wrapper.find("#res").text()).toEqual("2.76");  
   });
 
 
@@ -92,7 +92,7 @@ describe("Calc.vue", () => {
 
     wrapper.find("#be").trigger("click"); */
 
-    expect(wrapper.find("#res").text()).toEqual("1.76000");  
+    expect(wrapper.find("#res").text()).toEqual("1.76");  
   });
 
 
