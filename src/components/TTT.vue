@@ -1,20 +1,15 @@
-
 <template>
   <div id="app">
-   <md-icon class="md-size-5x" >engineering</md-icon> 
-</div>
-
-
+    <md-icon class="md-size-5x">engineering</md-icon> 
+  </div>
 </template>
 
 <script>
 export default {
-    template: '<ttt/>',
+  template: "<ttt/>",
   name: "ttt",
   data() {
-    return {
-      
-    };
+    return {};
   },
   methods: {
   
@@ -22,7 +17,4 @@ export default {
 };
 </script>
 
-
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,8 +1,18 @@
 ### ISSUES && TODO
 
-- PRECISIÓN Float: 
-    Ejemplo: parseFloat('2.75')- parseFloat('1') = 1.749
-    Solución temporal: redondear .toFixed(5), que no deja tener mas de 5 decimales.
+- PRECISIÓN Float:
+ 
+``` js   
+var a = parseFloat(10); // Returns 10
+var b = parseFloat(1.62); // Returns 1.62
+var c = a + b; // Returns 11.620000000000001
+``` 
+    Solución temporal: redondear .toFixed(5), que no deja tener mas de 10 decimales.
+
+``` js  
+Math.PI.toFixed(2); // "3.14"
+Math.PI.toPrecision(2); // "3.1"
+``` 
 
 - Units test (JEST):TODO: diseñar estrategia para abarcar todos las casuísticas. 
 
@@ -98,5 +108,3 @@ To apply these options only for tests, we need to add a separate config under `e
 #### Challenges
 https://pluscoders.com/stuff/web-dev/challenges/calculator-app/
 
-
- 

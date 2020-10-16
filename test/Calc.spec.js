@@ -1,5 +1,10 @@
 import { shallowMount } from "@vue/test-utils";
-import { MdButton, MdContent, MdTabs, mdCard } from 'vue-material/dist/components'
+import {
+  MdButton,
+  MdContent,
+  MdTabs,
+  mdCard,
+} from "vue-material/dist/components";
 import Calc from "@/components/Calc.vue";
 
 //Examples
@@ -18,19 +23,15 @@ describe("Calc.vue", () => {
       },
       activeTab: false,
     });
-    const button7 = wrapper.find("#b7");
-    button7.trigger("click");
+    wrapper.find("#b7").trigger("click");
 
-    const buttons = wrapper.find("#bs");
-    buttons.trigger("click");
+    wrapper.find("#bS").trigger("click");
 
-    const button1 = wrapper.find("#b8");
-    button1.trigger("click");
+    wrapper.find("#b8").trigger("click");
 
-    const buttone = wrapper.find("#be");
-    buttone.trigger("click");
+    wrapper.find("#bE").trigger("click");
 
-    expect(wrapper.find("#res").text()).toEqual("15");  
+    expect(wrapper.find("#res").text()).toEqual("15");
   });
 
   it("Sum float: 1.2*2.3=", () => {
@@ -44,22 +45,21 @@ describe("Calc.vue", () => {
       },
       activeTab: false,
     });
- 
+
     wrapper.find("#b1").trigger("click");
-    wrapper.find("#bp").trigger("click");
+    wrapper.find("#bP").trigger("click");
     wrapper.find("#b2").trigger("click");
 
-    wrapper.find("#bm").trigger("click");
+    wrapper.find("#bM").trigger("click");
 
     wrapper.find("#b2").trigger("click");
-    wrapper.find("#bp").trigger("click");
+    wrapper.find("#bP").trigger("click");
     wrapper.find("#b3").trigger("click");
 
-    wrapper.find("#be").trigger("click");
+    wrapper.find("#bE").trigger("click");
 
-    expect(wrapper.find("#res").text()).toEqual("2.76");  
+    expect(wrapper.find("#res").text()).toEqual("2.76");
   });
-
 
   it("Sum float: 1.2*2.3-1+", () => {
     const wrapper = shallowMount(Calc, {
@@ -72,28 +72,23 @@ describe("Calc.vue", () => {
       },
       activeTab: false,
     });
- 
+
     wrapper.find("#b1").trigger("click");
-    wrapper.find("#bp").trigger("click");
+    wrapper.find("#bP").trigger("click");
     wrapper.find("#b2").trigger("click");
 
-    wrapper.find("#bm").trigger("click");
+    wrapper.find("#bM").trigger("click");
 
     wrapper.find("#b2").trigger("click");
-    wrapper.find("#bp").trigger("click");
+    wrapper.find("#bP").trigger("click");
     wrapper.find("#b3").trigger("click");
 
-    wrapper.find("#be").trigger("click")
+    wrapper.find("#bE").trigger("click");
 
-    wrapper.find("#br").trigger("click");
+    wrapper.find("#bR").trigger("click");
     wrapper.find("#b1").trigger("click");
-    wrapper.find("#bs").trigger("click");
-/*     wrapper.find("#b1").trigger("click");
+    wrapper.find("#bS").trigger("click");
 
-    wrapper.find("#be").trigger("click"); */
-
-    expect(wrapper.find("#res").text()).toEqual("1.76");  
+    expect(wrapper.find("#res").text()).toEqual("1.76");
   });
-
-
 });
