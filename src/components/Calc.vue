@@ -59,6 +59,10 @@ export default {
     };
   },
   methods: {
+        openUrl(url)
+    {
+      window.open(url, '_blank')
+    },
     /**
      * getId method'
      * @param  execOp string: '*'.'+','-','/','C','='
@@ -183,8 +187,8 @@ export default {
 };
 </script>
 
-
-<style scoped>
+<style   scoped >
+/* write SCSS here */
 .htmlcalc {
   width: 40vw;
   /*   min-width: 700px !important; */

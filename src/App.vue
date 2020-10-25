@@ -37,6 +37,11 @@
               <md-icon>psychology</md-icon>
               <span class="md-list-item-text">Memory Game</span>
             </md-list-item>
+            <md-list-item>
+              <md-icon>cake</md-icon>
+
+              <span class="md-list-item-text">Maria Lunarillos</span>
+            </md-list-item>
           </md-list>
         </md-app-drawer>
 
@@ -61,8 +66,17 @@ import {
   MdListItem,
 } from "vue-material/dist/components";
 export default {
+  publicPath: process.env.BASE_URL,
+  template: "<app/>",
+  name: "app",
+  data() {},
   components: {
     Calc,
+  },
+  methods: {
+    openUrl(url) {
+      window.open("/html/marialunarillos/marialunarillos.html", "_blank");
+    },
   },
 };
 </script>
