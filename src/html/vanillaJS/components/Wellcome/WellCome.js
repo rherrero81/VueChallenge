@@ -45,14 +45,23 @@ class Wellcome extends HTMLElement {
             this.innerHTML += html;
 
             this.setVisibility(this.attributes['visible'].value === 'true');
-            this.refresh();
 
-            status$.subscribe('status', function name(params) {
+
+            modelservice$.subscribe('status', function name(params) {
                 console.log('Status changed (Wellcome) : ' + params);
                 if (params == "0")
                     that.setVisibility(true);
                 else that.setVisibility(false);
             });
+
+            modelservice$.subscribe('user', function name(user) {
+                console.log('User changed (Wellcome) : ' + user);
+
+                that.FirstNameElement.innerHTML = user.f; // + ' ( ' + this.attributes['arg'].value + ' ) ';
+                that.LastNameElement.innerHTML = user.l;
+
+            });
+
 
             this.ContainerElement.querySelector('#bKO').addEventListener("click", function() {
                 current_user = {
@@ -62,9 +71,9 @@ class Wellcome extends HTMLElement {
                     p: "",
                     m: "",
                 };
-                that.refresh();
-                status = "2";
-                status$.publish('status', "2");
+
+
+                modelservice$.publish('status', "2");
                 //VisibilityState();
 
             });
@@ -73,17 +82,17 @@ class Wellcome extends HTMLElement {
     disconnectedCallback() {
         /*called when the element is disconnected from the page */
     }
-    refresh() {
+    /*   refresh() {
 
         this.FirstNameElement.innerHTML = current_user.f; // + ' ( ' + this.attributes['arg'].value + ' ) ';
         this.LastNameElement.innerHTML = current_user.l;
     }
-
+ */
     setVisibility(v) {
         if (v) {
-            this.refresh();
+
             this.ContainerElement.classList.remove("hidden");
-        } else this.ContainerElement.classList.add("hidden")
+        } else this.ContainerElement.classList.add("hidden");
 
     }
 }

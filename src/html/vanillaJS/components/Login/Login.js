@@ -59,20 +59,31 @@
              this.innerHTML += html;
 
              this.setVisibility(this.attributes['visible'].value === 'true');
-             status$.subscribe('status', function name(params) {
+             modelservice$.subscribe('status', function name(params) {
                  console.log('Status changed (Login) : ' + params);
                  if (params == "2")
                      that.setVisibility(true);
                  else that.setVisibility(false);
              });
              this.OkElement.addEventListener("click", function() {
-                 that.login(that.UserElement.value, that.PasswordElement.value);
+
+                 if (that.UserElement.checkValidity() && that.PasswordElement.checkValidity())
+                     that.login(that.UserElement.value, that.PasswordElement.value);
+                 else {
+                     if (that.UserElement.validity.valueMissing) {
+                         that.UserElement.classList.add("input--error");
+                     }
+                     if (that.PasswordElement.validity.valueMissing) {
+                         that.PasswordElement.classList.add("input--error");
+                     }
+                     that.ErrorElement.classList.add("label--error--display");
+                 }
              });
 
              this.RegisterElement.addEventListener("click", function() {
-                 status = "1";
 
-                 status$.publish('status', "1");
+
+                 modelservice$.publish('status', "1");
              });
          });
      }
@@ -86,6 +97,8 @@
          this.UserElement.value = "";
          this.PasswordElement.value = "";
          this.ErrorElement.classList.remove("label--error--display");
+         this.UserElement.classList.remove("input--error");
+         this.PasswordElement.classList.remove("input--error");
      }
      login(u, p) {
          var found = listUsers.find(function(e) {
@@ -96,8 +109,8 @@
              this.ErrorElement.classList.remove("label--error--display");
 
              current_user = found;
-             status = "0";
-             status$.publish('status', "0");
+             modelservice$.publish('user', current_user);
+             modelservice$.publish('status', "0");
              //VisibilityState();
 
          } else {
