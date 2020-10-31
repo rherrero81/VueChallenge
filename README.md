@@ -1,4 +1,8 @@
-### ISSUES && TODO
+### ISSUES && TODO DECORER
+
+### ISSUES && TODO CLACULATOR
+
+
 
 - PRECISIÓN Float:
  

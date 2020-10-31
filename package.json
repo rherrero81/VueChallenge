@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "open": "^7.3.0",
+        "vanilla-framework": "^2.19.2",
         "vue": "latest",
         "vue-material": "latest"
     },
