@@ -1,4 +1,4 @@
-class DrinkDecorator extends HTMLElement {
+class DrinkDecorator extends HTMLComponent {
 
 
     get ContainerElement() {
@@ -26,6 +26,15 @@ class DrinkDecorator extends HTMLElement {
         /*called when the class is 
                                instantiated
                                */
+        let that = this;
+        if (modelservice$.getvalue("status") == EnumStatus.DriknDecorer)
+            that.Pre_Load(true);
+        else that.Pre_Load(false);
+        modelservice$.subscribe('status', function name(params) {
+            if (params == EnumStatus.DriknDecorer)
+                that.Pre_Load(true);
+            else that.Pre_Load(false);
+        });
 
     }
     connectedCallback() {
@@ -33,25 +42,47 @@ class DrinkDecorator extends HTMLElement {
                                 connected to the page.
                                 This can be called multiple 
                                 times during the element's lifecycle. for example when using drag&drop to move elements around */
+    }
+
+    Onload() {
         let that = this;
 
 
         getTemplate("./components/DrinkDecorator/template.html").then((html) => {
 
+            that.innerHTML += html;
 
-            this.setVisibility(this.attributes['visible'].value === 'true');
+            //APPLY ATTR
+            // that.setVisibility(that.attributes['visible'].value === 'true');
+
+            //MODEL EVENTS
 
 
-            modelservice$.subscribe('status', function name(params) {
-                console.log('Status changed (Wellcome) : ' + params);
-                if (params == "0")
-                    that.setVisibility(true);
-                else that.setVisibility(false);
+            modelservice$.subscribe('toppin', (top) => {
+                if (top) {
+                    that.CostElement.innerHTML = top.getCost() + '(€)';
+                    that.DescElement.innerHTML = top.getDescription();
+                }
+
             });
 
+            modelservice$.subscribe('drink', (dri) => {
+
+                if (modelservice$.getvalue('toppin')) {
+                    that.CostElement.innerHTML = modelservice$.getvalue('toppin').getCost() + '(€)';
+                    that.DescElement.innerHTML = modelservice$.getvalue('toppin').getDescription();
+                } else {
+                    that.CostElement.innerHTML = dri.getCost() + '(€)';
+                    that.DescElement.innerHTML = dri.getDescription();
+                }
 
 
-            this.ContainerElement.querySelector('#ulS').addEventListener("click", function(e) {
+            });
+
+            //
+
+            //ELEMENTS EVENTS
+            that.ContainerElement.querySelector('#ulS').addEventListener("click", function(e) {
                 let val = parseInt(e.target.value);
                 let drink = modelservice$.getvalue('drink');
                 drink.setSize(val);
@@ -62,7 +93,7 @@ class DrinkDecorator extends HTMLElement {
 
             });
 
-            this.ContainerElement.querySelector('#ulD').addEventListener("click", function(e) {
+            that.ContainerElement.querySelector('#ulD').addEventListener("click", function(e) {
                 let val = e.target.value;
                 let drink = modelservice$.getvalue('drink');
                 let tp = modelservice$.getvalue('toppin');
@@ -78,7 +109,7 @@ class DrinkDecorator extends HTMLElement {
 
             });
 
-            this.ContainerElement.querySelector('#ulT').addEventListener("click", function(e) {
+            that.ContainerElement.querySelector('#ulT').addEventListener("click", function(e) {
                 let val = e.target.value;
 
                 let tp = modelservice$.getvalue('toppin');
@@ -95,29 +126,12 @@ class DrinkDecorator extends HTMLElement {
             });
 
 
-            modelservice$.subscribe('toppin', (top) => {
-                if (top) {
-                    that.CostElement.innerHTML = top.getCost() + '(€)';
-                    that.DescElement.innerHTML = top.getDescription();
-                }
-
-            });
-            modelservice$.subscribe('drink', (dri) => {
-
-                if (modelservice$.getvalue('toppin')) {
-                    that.CostElement.innerHTML = modelservice$.getvalue('toppin').getCost() + '(€)';
-                    that.DescElement.innerHTML = modelservice$.getvalue('toppin').getDescription();
-                } else {
-                    that.CostElement.innerHTML = dri.getCost() + '(€)';
-                    that.DescElement.innerHTML = dri.getDescription();
-                }
-
-
-            });
-
 
         });
+
     }
+
+
     changeDrink(e) {
         console.log(e);
 

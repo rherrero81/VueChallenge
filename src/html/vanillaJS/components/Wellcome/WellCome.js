@@ -1,4 +1,4 @@
-class Wellcome extends HTMLElement {
+class Wellcome extends HTMLComponent {
     get ContainerElement() {
         if (templates["./components/Wellcome/template.html"]) {
             if (this.innerHTML === "")
@@ -6,7 +6,6 @@ class Wellcome extends HTMLElement {
             return this.querySelector("#wellcome");
         } else return this.querySelector("#wellcome");
 
-        //  if (!this.hasOwnProperty('children')) {
     }
 
     get FirstNameElement() {
@@ -40,6 +39,12 @@ class Wellcome extends HTMLElement {
         return this.ContainerElement.querySelector("#eDD");
     }
 
+    get eForElement() {
+        return this.ContainerElement.querySelector("#eFor");
+    }
+
+
+
     constructor() {
         super();
         /*called when the class is 
@@ -52,15 +57,19 @@ class Wellcome extends HTMLElement {
                                     This can be called multiple 
                                     times during the element's lifecycle. for example when using drag&drop to move elements around */
         let that = this;
+        that.Pre_Load(true);
+    }
 
-        getTemplate("./components/Wellcome/template.html").then((html) => {
-            this.setVisibility(this.attributes["visible"].value === "true");
+    Onload() {
+        //let template_url = 'http://localhost:3030/api/v1/template?q=wellcome';
+        let template_url = "./components/Wellcome/template.html";
+        let that = this;
+        getTemplate(template_url).then((html) => {
+            that.innerHTML = html;
 
-            modelservice$.subscribe("status", function name(params) {
-                console.log("Status changed (Wellcome) : " + params);
-                if (params != "1" && params != "2") that.setVisibility(true);
-                else that.setVisibility(false);
-            });
+            //   that.setVisibility(this.attributes["visible"].value === "true");
+
+            //MODEL EVENTS
 
             modelservice$.subscribe("user", function name(user) {
                 console.log("User changed (Wellcome) : " + user);
@@ -68,25 +77,35 @@ class Wellcome extends HTMLElement {
                 that.FirstNameElement.innerHTML = user.firstname; // + ' ( ' + this.attributes['arg'].value + ' ) ';
                 that.LastNameElement.innerHTML = user.lastname;
             });
-            this.eMLElement.addEventListener("click", function() {
-                modelservice$.publish('status', "5");
+            //
+
+            //ELEMENTS EVENTS
+
+            that.eMLElement.addEventListener("click", function() {
+                modelservice$.publish('status', EnumStatus.Iframe);
             });
-            this.eDDElement.addEventListener("click", function() {
-                modelservice$.publish('status', "0");
+            that.eDDElement.addEventListener("click", function() {
+                modelservice$.publish('status', EnumStatus.DriknDecorer);
+            });
+            that.eForElement.addEventListener("click", function() {
+                modelservice$.publish('status', EnumStatus.Forex);
             });
 
-            this.MenuHElement.addEventListener("click", function() {
+
+
+            that.MenuHElement.addEventListener("click", function() {
                 that.MenuVElement.classList.add("container--hide");
             });
 
-            this.iMenuElement.addEventListener("click", function(event) {
+            that.iMenuElement.addEventListener("click", function(event) {
                 event.stopPropagation();
                 if (that.MenuVElement.classList.contains("container--hide"))
                     that.MenuVElement.classList.remove("container--hide");
                 else that.MenuVElement.classList.add("container--hide");
             });
 
-            this.ContainerElement.querySelector("#bKO").addEventListener(
+            that.ContainerElement.querySelector("#bKO").addEventListener(
+
                 "click",
                 function() {
                     current_user = {
@@ -97,11 +116,13 @@ class Wellcome extends HTMLElement {
                         mail: "",
                     };
 
-                    modelservice$.publish("status", "2");
+                    modelservice$.publish("status", EnumStatus.Login);
                     //VisibilityState();
                 }
             );
+            //
         });
+
     }
     changeDrink(e) {
         console.log(e);
@@ -112,12 +133,7 @@ class Wellcome extends HTMLElement {
     disconnectedCallback() {
         /*called when the element is disconnected from the page */
     }
-    /*   refresh() {
 
-        this.FirstNameElement.innerHTML = current_user.f; // + ' ( ' + this.attributes['arg'].value + ' ) ';
-        this.LastNameElement.innerHTML = current_user.l;
-    }
- */
     setVisibility(v) {
         if (v) {
             this.ContainerElement.classList.remove("hidden");
