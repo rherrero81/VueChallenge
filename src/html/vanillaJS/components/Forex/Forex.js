@@ -32,24 +32,7 @@ class Forex extends HTMLComponent {
                                */
 
     }
-    connectedCallback() {
-        /*called when the element is 
-                                connected to the page.
-                                This can be called multiple 
-                                times during the element's lifecycle. for example when using drag&drop to move elements around */
-        let that = this;
-        if (modelservice$.getvalue("status") == EnumStatus.Forex)
-            that.Pre_Load(true);
-        else that.Pre_Load(false)
-        modelservice$.subscribe('status', function name(params) {
-            console.log('Status changed (Forex) : ' + params);
-            if (params == EnumStatus.Forex)
-                that.Pre_Load(true);
-            else that.Pre_Load(false);
-        });
 
-
-    }
 
 
     Onload() {
@@ -90,9 +73,7 @@ class Forex extends HTMLComponent {
         console.log(e);
 
     }
-    disconnectedCallback() {
-        /*called when the element is disconnected from the page */
-    }
+
     /*   refresh() {
 
         this.FirstNameElement.innerHTML = current_user.f; // + ' ( ' + this.attributes['arg'].value + ' ) ';

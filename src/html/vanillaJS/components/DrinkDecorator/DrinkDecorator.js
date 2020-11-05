@@ -26,23 +26,10 @@ class DrinkDecorator extends HTMLComponent {
         /*called when the class is 
                                instantiated
                                */
-        let that = this;
-        if (modelservice$.getvalue("status") == EnumStatus.DriknDecorer)
-            that.Pre_Load(true);
-        else that.Pre_Load(false);
-        modelservice$.subscribe('status', function name(params) {
-            if (params == EnumStatus.DriknDecorer)
-                that.Pre_Load(true);
-            else that.Pre_Load(false);
-        });
+
 
     }
-    connectedCallback() {
-        /*called when the element is 
-                                connected to the page.
-                                This can be called multiple 
-                                times during the element's lifecycle. for example when using drag&drop to move elements around */
-    }
+
 
     Onload() {
         let that = this;
@@ -140,15 +127,7 @@ class DrinkDecorator extends HTMLComponent {
         console.log(e);
 
     }
-    disconnectedCallback() {
-        /*called when the element is disconnected from the page */
-    }
-    /*   refresh() {
 
-        this.FirstNameElement.innerHTML = current_user.f; // + ' ( ' + this.attributes['arg'].value + ' ) ';
-        this.LastNameElement.innerHTML = current_user.l;
-    }
- */
     setVisibility(v) {
         if (v) {
 

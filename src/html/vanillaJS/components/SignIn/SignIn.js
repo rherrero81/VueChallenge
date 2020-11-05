@@ -55,27 +55,6 @@ class Sing_In extends HTMLComponent {
                        */
     }
 
-    connectedCallback() {
-        /*called when the element is 
-                        connected to the page.
-                        This can be called multiple 
-                        times during the element's lifecycle. for example when using drag&drop to move elements around */
-        let that = this;
-        if (modelservice$.getvalue("status") == EnumStatus.SigIn)
-            that.Pre_Load(true);
-        else that.Pre_Load(false);
-        modelservice$.subscribe('status', function name(params) {
-
-            console.log('Status changed (Singin) : ' + params);
-            if (params == EnumStatus.SigIn)
-                that.Pre_Load(true);
-            else that.Pre_Load(false);
-        });
-
-    }
-
-
-
 
     Onload() {
         let that = this;
@@ -92,7 +71,7 @@ class Sing_In extends HTMLComponent {
             //BUTTON EVENTS
             that.BackElement.addEventListener("click", function() {
 
-                modelservice$.publish('status', EnumStatus.Login);
+                modelservice$.publish('status', EnumPages.Login);
 
 
             });
@@ -110,7 +89,7 @@ class Sing_In extends HTMLComponent {
                     } else {
                         console.log("Removed!");
                         that.ErrorElement.classList.remove('label--error--display');
-                        modelservice$.publish('status', EnumStatus.Login);
+                        modelservice$.publish('status', EnumPages.Login);
                         modelservice$.publish('loading', false);
                     }
 
@@ -165,9 +144,7 @@ class Sing_In extends HTMLComponent {
             that.SaveElement.innerHTML = "SAVE";
         }
     }
-    disconnectedCallback() {
-        /*called when the element is disconnected from the page */
-    }
+
     signin(that, u, p, f, l, m) {
         if (u != "" && p != "" && f != "" && f != "" && m != "") {
             document
@@ -194,7 +171,7 @@ class Sing_In extends HTMLComponent {
                     console.log("Registered!");
                     that.ErrorElement.classList.remove('label--error--display');
                     modelservice$.publish('loading', false);
-                    modelservice$.publish('status', EnumStatus.Login);
+                    modelservice$.publish('status', EnumPages.Login);
                 }
 
 

@@ -42,6 +42,10 @@ class Wellcome extends HTMLComponent {
     get eForElement() {
         return this.ContainerElement.querySelector("#eFor");
     }
+    get eHWElement() {
+        return this.ContainerElement.querySelector("#eHW");
+    }
+
 
 
 
@@ -51,14 +55,7 @@ class Wellcome extends HTMLComponent {
                                    instantiated
                                    */
     }
-    connectedCallback() {
-        /*called when the element is 
-                                    connected to the page.
-                                    This can be called multiple 
-                                    times during the element's lifecycle. for example when using drag&drop to move elements around */
-        let that = this;
-        that.Pre_Load(true);
-    }
+
 
     Onload() {
         //let template_url = 'http://localhost:3030/api/v1/template?q=wellcome';
@@ -82,14 +79,19 @@ class Wellcome extends HTMLComponent {
             //ELEMENTS EVENTS
 
             that.eMLElement.addEventListener("click", function() {
-                modelservice$.publish('status', EnumStatus.Iframe);
+                modelservice$.publish('status', EnumPages.Iframe);
             });
             that.eDDElement.addEventListener("click", function() {
-                modelservice$.publish('status', EnumStatus.DriknDecorer);
+                modelservice$.publish('status', EnumPages.DriknDecorer);
             });
             that.eForElement.addEventListener("click", function() {
-                modelservice$.publish('status', EnumStatus.Forex);
+                modelservice$.publish('status', EnumPages.Forex);
             });
+
+            that.eHWElement.addEventListener("click", function() {
+                modelservice$.publish('status', EnumPages.HotWheels);
+            });
+
 
 
 
@@ -116,7 +118,7 @@ class Wellcome extends HTMLComponent {
                         mail: "",
                     };
 
-                    modelservice$.publish("status", EnumStatus.Login);
+                    modelservice$.publish("status", EnumPages.Login);
                     //VisibilityState();
                 }
             );
@@ -130,9 +132,7 @@ class Wellcome extends HTMLComponent {
     addTopping(e) {
         console.log(e);
     }
-    disconnectedCallback() {
-        /*called when the element is disconnected from the page */
-    }
+
 
     setVisibility(v) {
         if (v) {

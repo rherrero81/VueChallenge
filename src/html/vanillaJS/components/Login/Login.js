@@ -34,6 +34,7 @@ class Log_In extends HTMLComponent {
 
         //
         let that = this;
+        that.url = '/components/Login/';
     }
 
     async callAPI(user, url) {
@@ -54,46 +55,22 @@ class Log_In extends HTMLComponent {
         return r;
     }
 
-    connectedCallback() {
-        /*called when the element is 
-                     connected to the page.
-                     This can be called multiple 
-                     times during the element's
-                     lifecycle.
-                     for example when using drag&drop
-                     to move elements around
-                    */
-        let that = this;
-        // live https://blacksmithpi-master-zxdjel1ccb.herokuapp.com/api/v1/template?q=login
-        // let template_url = 'http://localhost:3030/api/v1/template?q=login';
-        if (modelservice$.getvalue("status") == EnumStatus.Login)
-            that.Pre_Load(true);
-        else that.Pre_Load(false);
-
-        modelservice$.subscribe("status", function name(params) {
-
-            if (params == EnumStatus.SigIn) that.Pre_Load(true);
-            else that.Pre_Load(false);
-        });
-    }
 
     Onload() {
         let that = this;
-        let template_url = "./components/Login/template.html";
+        let template_url = "." + that.url +
+            "template.html";
         getTemplate(template_url).then((html) => {
             that.innerHTML += html;
 
+
+
+            that.renderTemplate();
             //APPLY ATTR
             // that.setVisibility(that.attributes["visible"].value === "true");
             //
 
-            //MODEL EVENTS
-            modelservice$.subscribe("status", function name(params) {
-                console.log("Status changed (Login) : " + params);
-                if (params == EnumStatus.Login) that.setVisibility(true);
-                else that.setVisibility(false);
-            });
-            //
+
 
             //BUTTON EVENTS
             that.OkElement.addEventListener("click", function() {
@@ -115,16 +92,15 @@ class Log_In extends HTMLComponent {
             });
 
             that.RegisterElement.addEventListener("click", function() {
-                modelservice$.publish("status", EnumStatus.SigIn);
+                modelservice$.publish("status", EnumPages.SigIn);
             });
             //
         });
     }
 
     disconnectedCallback() {
-        /*called when the element
-                              is disconnected from the page
-                            */
+        /*called when the element is disconnected from the page */
+        this.OnUnload('/components/Login/login.css');
     }
 
     refresh() {
@@ -148,7 +124,7 @@ class Log_In extends HTMLComponent {
             current_user = cc.t;
             modelservice$.publish("user", current_user);
             modelservice$.publish("loading", false);
-            modelservice$.publish("status", EnumStatus.DriknDecorer);
+            modelservice$.publish("status", EnumPages.HotWheels);
         } else {
             modelservice$.publish("loading", false);
             that.ErrorElement.classList.add("label--error--display");
@@ -165,7 +141,7 @@ class Log_In extends HTMLComponent {
                 retrieve_user(user, c).then((cc) => {
                     current_user = cc.t;
                     modelservice$.publish("user", current_user);
-                    modelservice$.publish("status", EnumStatus.DriknDecorer);
+                    modelservice$.publish("status", EnumPages.DriknDecorer);
                     modelservice$.publish("loading", false);
                 });
             } else {

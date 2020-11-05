@@ -26,38 +26,30 @@ class Loading extends HTMLComponent {
                                */
 
     }
-    connectedCallback() {
-        /*called when the element is 
-                                connected to the page.
-                                This can be called multiple 
-                                times during the element's lifecycle. for example when using drag&drop to move elements around */
-        let that = this;
 
-        if (modelservice$.getvalue("loading"))
-            that.Pre_Load(true);
-        else that.Pre_Load(false);
-        modelservice$.subscribe('loading', function name(params) {
-
-            if (params)
-                that.Pre_Load(true);
-            else that.Pre_Load(false);
-        });
-
-
-    }
 
     Onload() {
         let that = this;
+
+
+
         getTemplate("./components/Loading/template.html").then((html) => {
 
             that.innerHTML = html;
+            if (modelservice$.getvalue("loading"))
+                that.setVisibility(true);
+            else that.setVisibility(false);
+            modelservice$.subscribe('loading', function name(params) {
+
+                if (params)
+                    that.setVisibility(true);
+                else that.setVisibility(false);
+            });
 
         });
     }
 
-    disconnectedCallback() {
-        /*called when the element is disconnected from the page */
-    }
+
 
     setVisibility(v) {
         if (v) {

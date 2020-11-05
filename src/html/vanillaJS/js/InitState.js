@@ -1,13 +1,21 @@
 var templates = {};
-var listUsers = [];
-EnumStatus = {
-    DriknDecorer: 3,
-    Iframe: 4,
-    Forex: 5,
+var pages = [];
+EnumPages = {
     Login: 0,
     SigIn: 1,
     Wellcome: 2,
+    DriknDecorer: 3,
+    Iframe: 4,
+    Forex: 5,
+    HotWheels: 6
 };
+
+pages[EnumPages.DriknDecorer] = "<well-come arg='2'></well-come><drink-decorator></drink-decorator>";
+pages[EnumPages.Iframe] = "<well-come arg='2'></well-come> <i-frame url='../../../src/html/marialunarillos/' > </i-frame>";
+pages[EnumPages.Forex] = "<well-come arg='2'></well-come><i-forex> </i-forex>";
+pages[EnumPages.Login] = "<log-in></log-in> <i-loading></i-loading> ";
+pages[EnumPages.SigIn] = "<sign-in></sign-in><i-loading></i-loading> ";
+pages[EnumPages.HotWheels] = "<well-come arg='2'></well-come><hot-wheels> </hot-wheels>";
 
 const modelservice$ = new pubSub();
 var current_user = {
@@ -19,37 +27,14 @@ var current_user = {
 };
 
 modelservice$.subscribe("status", (c) => {
-    document.querySelector("log-in") ? document.querySelector("log-in").remove() : null;
-    document.querySelector("sign-in") ? document.querySelector("sign-in").remove() : null;
-    document.querySelector("drink-decorator") ? document.querySelector("drink-decorator").remove() : null;
-    document.querySelector("i-forex") ? document.querySelector("i-forex").remove() : null;
-    document.querySelector("well-come") ? document.querySelector("well-come").remove() : null;
-    document.querySelector("i-loading") ? document.querySelector("i-loading").remove() : null;
-    switch (c) {
-        case EnumStatus.Login:
-            document.querySelector("body").innerHTML +=
-                " <log-in></log-in> <i-loading></i-loading> ";
-            break;
-        case EnumStatus.SigIn:
-            document.querySelector("body").innerHTML +=
-                "<sign-in></sign-in><i-loading></i-loading> ";
-            break;
-        case EnumStatus.DriknDecorer:
-            document.querySelector("body").innerHTML +=
-                "<well-come arg='2'></well-come><drink-decorator></drink-decorator>";
-            break;
-        case EnumStatus.Forex:
-            document.querySelector("body").innerHTML +=
-                "<well-come arg='2'></well-come><i-forex> </i-forex>";
-            break;
-        case EnumStatus.Iframe:
-            document.querySelector("body").innerHTML +=
-                "<well-come arg='2'></well-come> <i-frame url='../../../src/html/marialunarillos/' > < /i-frame>";
-            break;
-
-        default:
-            break;
+    let toremove = [];
+    for (let item of document.querySelector("body").children) {
+        if (item.localName !== 'script' && item.localName !== 'template')
+            toremove.push(item);
     }
+    toremove.map(c => c.remove());
+    document.querySelector("body").innerHTML += pages[c];
+
 });
 
 /*
@@ -65,7 +50,7 @@ modelservice$.subscribe("status", (c) => {
  */
 
 // const modelservice$ = new ObservableOf(status)
-modelservice$.publish("status", EnumStatus.Login);
+modelservice$.publish("status", EnumPages.Login);
 
 // publisher
 // Subscriber
