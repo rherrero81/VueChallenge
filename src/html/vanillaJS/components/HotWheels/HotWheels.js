@@ -6,18 +6,10 @@ class HotWheels extends HTMLComponent {
             return this.querySelector("#hotwheel");
         } else return this.querySelector("#hotwheel");
     }
-    get ColorsElement() {
-        return this.ContainerElement.querySelector("#ulColor");
-    }
 
     constructor() {
         super();
 
-        /*called when the class is 
-                    instantiated
-                    */
-
-        //
         let that = this;
         that.url = '/components/HotWheels/';
     }
@@ -27,22 +19,6 @@ class HotWheels extends HTMLComponent {
         let that = this;
         let template_url = "." + that.url +
             "template.html";
-        modelservice$.publish("colors", [{
-                name: '--Choose COLOR--'
-            },
-            {
-                name: 'red'
-            }, {
-                name: 'blue'
-            }, {
-                name: 'green'
-            }, {
-                name: 'pink'
-            },
-            {
-                name: 'black'
-            }
-        ]);
 
 
         modelservice$.subscribe('vehiclescolor', (d) => {
@@ -63,18 +39,33 @@ class HotWheels extends HTMLComponent {
 
         });
 
+        modelservice$.publish("colors", [{
+                name: '--Choose COLOR--'
+            },
+            {
+                name: 'red'
+            }, {
+                name: 'blue'
+            }, {
+                name: 'green'
+            }, {
+                name: 'pink'
+            },
+            {
+                name: 'black'
+            }
+        ]);
+
+
         modelservice$.publish("vehiclescolor", "nocolor");
 
+
+
     }
 
-    disconnectedCallback() {
-        /*called when the element is disconnected from the page */
-        this.OnUnload('/components/Login/login.css');
-    }
 
     changeColor(color) {
         modelservice$.publish("vehiclescolor", color);
-
     }
 
 
