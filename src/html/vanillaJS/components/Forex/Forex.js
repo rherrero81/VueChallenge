@@ -29,11 +29,13 @@ class Forex extends HTMLComponent {
                 that.renderTemplate();
             });
         });
-        modelservice$.publish("updatedate", {
-            ldate: new Date(Date.now()).toString(),
-        })
+
         modelservice$.publish(
-            "live", false);
+            "updatedate", {
+                literal: 'Go Live',
+                islive: false,
+                ldate: new Date(Date.now()).toString()
+            });
         modelservice$.publish("loading", true);
         this.refresh(that);
     }
@@ -44,6 +46,8 @@ class Forex extends HTMLComponent {
             // console.log(c.returnData);
             //
             modelservice$.publish("updatedate", {
+                islive: modelservice$.getvalue("updatedate").islive,
+                literal: modelservice$.getvalue("updatedate").literal,
                 ldate: new Date(Date.now()).toString(),
             });
 
@@ -105,10 +109,18 @@ class Forex extends HTMLComponent {
 
     changeLive() {
 
-        let live = modelservice$.getvalue("live") == undefined ? true : !modelservice$.getvalue("live");
+        let updatedate = modelservice$.getvalue("updatedate") == undefined ? {
+            literal: 'Stop Live',
+            islive: true,
+            ldate: new Date(Date.now()).toString()
+        } : {
+            literal: modelservice$.getvalue("updatedate").literal == 'Stop Live' ? 'Go Live' : 'Stop Live',
+            islive: !modelservice$.getvalue("updatedate").islive,
+            ldate: new Date(Date.now()).toString()
+        };
 
         let that = this;
-        if (live) {
+        if (updatedate.islive) {
             that.refresh(that);
             this.handelrtimer = setInterval(function() { that.refresh(that); }, 10000);
         } else {
@@ -116,7 +128,7 @@ class Forex extends HTMLComponent {
             clearInterval(this.handelrtimer);
         }
         modelservice$.publish(
-            "live", live);
+            "updatedate", updatedate);
 
     }
 

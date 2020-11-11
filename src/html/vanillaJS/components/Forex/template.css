@@ -3,6 +3,10 @@ input[type='search'] {
     width: 210px;
 }
 
+.symboldiv {
+    align-self: center !important;
+}
+
 select {
     cursor: pointer;
     width: 210px;

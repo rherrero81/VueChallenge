@@ -2,12 +2,13 @@
 
     <div class="container container--flex--column">
         <div class="updatedate ">
-            <label *vjmodel="updatedate"> Last update time: {{ldate}}            </label> Live
-            <button *vj:click="changeLive()">{{live}}</button>
+            <label *vjmodel="updatedate"> Last update time: {{ldate}}    {{literal}}        </label>
+            <button *vj:click="changeLive()">Go!</button>
         </div>
+
         <div class=" symboldiv ">
 
-            <input *vj:change="changeSearch()" type="search" /><br> <select *vj:change="changeFigure()" class="select ">
+            <input placeholder="Search a figure..." *vj:change="changeSearch()" type="search" /><br> <select *vj:change="changeFigure()" class="select ">
                 <option *vjmodel='figures' class="{{visible}}" value="{{symbol}}">{{description}}
                 </option>
             </select>
