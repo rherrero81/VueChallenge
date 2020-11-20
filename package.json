@@ -11,8 +11,8 @@
         "test": "jest",
         "node-sassMaria": "node-sass --output-style compressed -o src/html/marialunarillos/scss src/html/marialunarillos/scss",
         "sass:watchMaria": "node-sass  -wo src/html/marialunarillos/scss src/html/marialunarillos/scss",
-        "node-sassVanilla": "node-sass --output-style compressed -o src/html/VanillaJS/sass src/html/VanillaJS/sass",
-        "sass:watchVanilla": "node-sass -wo src/html/VanillaJS/sass src/html/VanillaJS/sass"
+        "node-sassVanilla": "node-sass --output-style compressed -o src/html/forex-app/sass src/html/forex-app/sass",
+        "sass:watchVanilla": "node-sass -wo src/html/forex-app/sass src/html/forex-app/sass"
     },
     "dependencies": {
         "open": "^7.3.0",
